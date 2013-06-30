@@ -33,12 +33,11 @@ $dotfiles = [
   'profile',
   'screenrc',
   'shell_colours',
-  'ssh/config',
-  'ssh/known_hosts',
   'vimrc',
   'zshrc',
 ]
 users::dotfile { $dotfiles: user => 'tom' }
+users::dotfile { [ 'ssh/config', 'ssh/known_hosts' ]: user => 'tom', mode => '0600' }
 users::vim { 'tom': }
 users::vimbundle { 'puppet': user => 'tom' }
 users::vimbundle { 'fugitive': user => 'tom' }
