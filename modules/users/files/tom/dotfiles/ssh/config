@@ -1,0 +1,124 @@
+################################################################################
+# LOCALHOST
+################################################################################
+
+Host localhost
+StrictHostKeyChecking no
+
+
+################################################################################
+# @PLANET
+################################################################################
+
+Host *.atpla.net
+ChallengeResponseAuthentication no
+ForwardAgent yes
+PasswordAuthentication no
+Port 3022
+StrictHostKeyChecking yes
+User tom
+
+Host sysadmin1.lon.atpla.net
+Port 443
+
+Host git.atplanet.co.za git.bamford.co.za
+ChallengeResponseAuthentication no
+PasswordAuthentication no
+Port 443
+StrictHostKeyChecking yes
+User git
+
+Host lish-london.linode.com
+Port 443
+StrictHostKeyChecking yes
+User tombamford
+
+
+################################################################################
+# HETZNER
+################################################################################
+
+Host vcs.hetzner.co.za git.hetzner.co.za
+IdentitiesOnly yes
+IdentityFile ~/.ssh/keys/tom.bamford@hetzner.co.za.key
+Port 22
+User tom.b
+
+Host *.jenkins.hetzner.co.za
+IdentitiesOnly yes
+IdentityFile ~/.ssh/keys/tom.bamford@hetzner.co.za.key
+Port 22
+User root
+
+Host tomb-desktop tomb-desktop.dur1 tomb-desktop.dur1.host-h.net
+User tomb
+
+Host linsh linsh.dur1 linsh.dur1.host-h.net
+Port 22
+User linsh
+
+Host tf2 tf2.dur1 tf2.dur1.host-h.net
+Port 22
+User tf2
+
+Host ghe1.cpt1.host-h.net
+Port 22
+User git
+
+Host *.tst1 *.tst1.host-h.net
+Port 22
+IdentitiesOnly yes
+IdentityFile ~/.ssh/keys/vagrant.key
+User vagrant
+
+Host *.cpt? *.dur? *.flk? *.jnb? *.nur? *.host-h.net
+GSSAPIAuthentication yes
+Port 3022
+StrictHostKeyChecking no
+User root
+
+
+################################################################################
+# HOSTING SERVICES
+################################################################################
+
+Host bitbucket.org
+Port 22
+StrictHostKeyChecking ask
+User git
+
+Host github.com
+Port 22
+StrictHostKeyChecking ask
+User git
+
+
+################################################################################
+# CUSTOMER - AFRISPATIAL/TRACKS4AFRICA
+################################################################################
+
+Host t4a*.tracks4africa.co.za
+Port 8697
+StrictHostKeyChecking yes
+User tom
+
+
+################################################################################
+# CUSTOMER - WEBTIDE
+################################################################################
+
+Host aestus.webtide.co.za
+Port 222
+StrictHostKeyChecking yes
+
+
+################################################################################
+# DEFAULT OPTIONS
+################################################################################
+
+Host *
+HashKnownHosts no
+IdentityFile ~/.ssh/keys/tom@bamford.co.za.key
+ServerAliveInterval 30
+ServerAliveCountMax 6
+

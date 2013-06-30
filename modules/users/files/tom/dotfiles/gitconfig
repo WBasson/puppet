@@ -1,0 +1,25 @@
+[alias]
+co = checkout
+g = grep --break --heading --line-number
+graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
+latest = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short) [%(committername)] %(contents:subject)'
+pom = pull origin master
+st = status -sb
+undo = reset --soft HEAD^
+
+[color]
+ui = true
+
+[core]
+excludesfile = ~/.gitignore_global
+
+[grep]
+extendRegexp = true
+lineNumber = true
+
+[help]
+autocorrect = 5
+
+[user]
+name = Tom Bamford
+email = tom@bamford.co.za

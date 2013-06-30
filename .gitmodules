@@ -1,0 +1,27 @@
+[submodule "modules/stdlib"]
+	path = modules/stdlib
+	url = https://github.com/puppetlabs/puppetlabs-stdlib
+[submodule "modules/concat"]
+	path = modules/concat
+	url = https://github.com/ripienaar/puppet-concat
+[submodule "modules/users/files/tom/vim/bundle/puppet"]
+	path = modules/users/files/tom/vim/bundle/puppet
+	url = git://github.com/rodjek/vim-puppet.git
+[submodule "modules/users/files/tom/vim/bundle/fugitive"]
+	path = modules/users/files/tom/vim/bundle/fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule "modules/users/files/tom/vim/bundle/syntastic"]
+	path = modules/users/files/tom/vim/bundle/syntastic
+	url = git://github.com/scrooloose/syntastic.git
+[submodule "modules/users/files/tom/vim/bundle/rails"]
+	path = modules/users/files/tom/vim/bundle/rails
+	url = git://github.com/tpope/vim-rails.git
+[submodule "modules/users/files/tom/vim/bundle/git"]
+	path = modules/users/files/tom/vim/bundle/git
+	url = git://github.com/tpope/vim-git.git
+[submodule "modules/users/files/tom/vim/bundle/ruby"]
+	path = modules/users/files/tom/vim/bundle/ruby
+	url = git://github.com/vim-ruby/vim-ruby.git
+[submodule "modules/users/files/tom/vim/bundle/colorschemes"]
+	path = modules/users/files/tom/vim/bundle/colorschemes
+	url = git://github.com/flazz/vim-colorschemes.git

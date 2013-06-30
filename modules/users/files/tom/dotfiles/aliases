@@ -1,0 +1,6 @@
+alias kinit="kinit tom.b/root"
+alias ldapvi="ldapvi -D cn=admin,dc=atpla,dc=net"
+alias vi="vim"
+alias vip="vi -p"
+
+which colordiff >/dev/null && alias diff=colordiff
