@@ -1,4 +1,4 @@
-define users::dotfile($user, $home = "/home/$user", $mode = '0644') {
+define users::dotfile($user, $home = "/home/$user", $mode = '0644', $recurse = false) {
 
   if $name =~ /\// {
     $directory = regsubst($name, '^(.+)/([^/]+)', "$home/.\\1")
@@ -18,6 +18,7 @@ define users::dotfile($user, $home = "/home/$user", $mode = '0644') {
     owner   => $user,
     group   => $user,
     mode    => $mode,
+    recurse => $recurse,
     source  => "puppet:///modules/users/$user/dotfiles/$name",
     require => User[$user],
   }

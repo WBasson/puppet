@@ -25,3 +25,6 @@
 [submodule "modules/users/files/tom/vim/bundle/colorschemes"]
 	path = modules/users/files/tom/vim/bundle/colorschemes
 	url = git://github.com/flazz/vim-colorschemes.git
+[submodule "modules/users/files/tom/dotfiles/zsh"]
+	path = modules/users/files/tom/dotfiles/zsh
+	url = git://github.com/tombamford/oh-my-zsh.git
