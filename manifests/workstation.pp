@@ -1,21 +1,31 @@
 Exec {
-  path => '/bin:/sbin:/usr/bin:/usr/sbin',
+  path    => '/bin:/sbin:/usr/bin:/usr/sbin',
+  timeout => 0,
 }
 
+include chrome
+include clitools
+include kerberos
+include openssh
+include skype
 include stdlib
 
 package { 'clementine': ensure => installed }
-package { 'colordiff': ensure => installed }
+package { [ 'clusterssh', 'pssh' ]: ensure => installed }
 package { 'elinks': ensure => installed }
 package { 'firefox': ensure => installed }
-package { 'gimp': ensure => installed }
-package { 'gimp-data-extras': ensure => installed }
+package { [ 'gimp', 'gimp-data-extras' ]: ensure => installed }
 package { 'git': ensure => installed }
+package { 'java-1.7.0-openjdk': ensure => installed }
 package { 'mcollective-client': ensure => installed }
 package { 'puppet': ensure => installed }
-package { 'ruby': ensure => installed }
-package { 'rubygems': ensure => installed }
+package { 'qmpdclient': ensure => installed }
+package { [ 'remmina', 'remmina-plugins-nx', 'remmina-plugins-vnc' ]: ensure => installed }
+package { [ 'ruby', 'rubygems' ]: ensure => installed }
+package { [ 'screen', 'tmux' ]: ensure => installed }
+package { 'synergy': ensure => installed }
 package { 'vim-enhanced': ensure => installed }
+package { 'wireshark-gnome': ensure => installed }
 package { 'zsh': ensure => installed }
 
 user { 'tom':
@@ -24,7 +34,7 @@ user { 'tom':
   require => Package['zsh'],
 }
 
-$dotfiles = [
+users::dotfile { [
   'aliases',
   'bashrc',
   'env',
@@ -35,15 +45,31 @@ $dotfiles = [
   'shell_colours',
   'vimrc',
   'zshrc',
-]
-users::dotfile { $dotfiles: user => 'tom' }
+]: user => 'tom' }
 users::dotfile { [ 'ssh/config', 'ssh/known_hosts' ]: user => 'tom', mode => '0600' }
 users::dotfile { 'zsh': user => 'tom', recurse => true }
+
+users::dropbox { 'tom': }
+
+#users::rvm { 'tom': }
+
+users::script { [
+  'askpass.sh',
+  'env-push.sh',
+  'fix_known_hosts.rb',
+  'hetz-qualify-hostname.sh',
+  's',
+  'ssh-add-keys.sh',
+  'steam_bootstrap.sh',
+]: user => 'tom' }
+
 users::vim { 'tom': }
-users::vimbundle { 'puppet': user => 'tom' }
-users::vimbundle { 'fugitive': user => 'tom' }
-users::vimbundle { 'syntastic': user => 'tom' }
-users::vimbundle { 'rails': user => 'tom' }
-users::vimbundle { 'git': user => 'tom' }
-users::vimbundle { 'ruby': user => 'tom' }
-users::vimbundle { 'colorschemes': user => 'tom' }
+users::vimbundle { [
+  'colorschemes',
+  'fugitive',
+  'git',
+  'puppet',
+  'rails',
+  'ruby',
+  'syntastic',
+]: user => 'tom' }

@@ -1,0 +1,54 @@
+#!/usr/bin/env zsh
+
+# Determine SSH host/IP from final parameter and build ssh arguments
+HOST_SPEC=$@[-1]
+SSH_HOST="${HOST_SPEC##*@}"
+SSH_ARGS="${@%$HOST_SPEC}"
+
+# Default hostname when not specified
+[ -z "$SSH_HOST" ] && SSH_HOST=sysadmin1.lon.atpla.net
+
+# Try to determine hostname from IP
+if [[ $SSH_HOST =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+  echo Determine hostname by connecting to SMTP submission port ...
+  SMTP_HOST=$(echo "QUIT" | nc -v -n -w1 $SSH_HOST 587 2>/dev/null | grep '^220 ' | awk '{print $2}')
+  if [ -n "$SMTP_HOST" ]; then
+    echo Canonical hostname discovered as $SMTP_HOST
+    SSH_HOST=$SMTP_HOST
+  else
+    echo Could not determine hostname, looking up in DNS ...
+    DNS_HOST=$(host $SSH_HOST | sed -n 's/.*domain name pointer \(.\+[^\.]\).*/\1/p')
+    if [ -n "$DNS_HOST" ]; then
+      echo DNS hostname discovered as $DNS_HOST
+      SSH_HOST=$DNS_HOST
+    else
+      echo Could not determine hostname to use, falling back to IP address
+    fi
+  fi
+fi
+
+# Set the terminal title
+echo -n "\033]0;${SSH_HOST}\007"
+
+# Attempt to qualify Hetzner hostname
+SSH_HOST=$(hetz-qualify-hostname.sh $SSH_HOST)
+
+if [[ $SSH_HOST =~ \.atpla\.net$ ]]; then
+  # Set command to run on remote host
+  COMMAND=byobu
+elif [[ $SSH_HOST =~ \.host-h\.net$ ]]; then
+  # Set command to run on remote host
+  COMMAND="screen -S $LOGNAME -xR"
+
+  # Look for kerberos ticket and request new TGT
+  if [ "$SSH_HOST" != "tomb-desktop.dur1.host-h.net" ]; then
+    if klist 2>&1 | grep -q "No credentials"; then
+      kinit tom.b/root
+      klist 2>&1 | grep -q "No credentials" && exit 1
+    fi
+  fi
+fi
+
+# SSH to remote host and (re)attach labelled screen
+echo Initiating connection to $SSH_HOST ...
+ssh -t $=SSH_ARGS $SSH_HOST $COMMAND
