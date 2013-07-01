@@ -1,3 +1,4 @@
 #!/bin/sh
 
-sudo puppet apply --modulepath modules manifests/workstation.pp
+DIR="$(cd "$(dirname "$0")" && pwd)"
+sudo puppet apply --modulepath "$DIR/modules" "$DIR/manifests/workstation.pp"
