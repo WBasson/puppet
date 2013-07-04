@@ -5,6 +5,7 @@ Exec {
 
 include chrome
 include clitools
+include devtools
 include kerberos
 include openssh
 include skype
@@ -24,15 +25,24 @@ package { [ 'remmina', 'remmina-plugins-nx', 'remmina-plugins-vnc' ]: ensure => 
 package { [ 'ruby', 'rubygems' ]: ensure => installed }
 package { [ 'screen', 'tmux' ]: ensure => installed }
 package { 'synergy': ensure => installed }
+package { 'thunderbird': ensure => installed }
 package { 'vim-enhanced': ensure => installed }
 package { 'wireshark-gnome': ensure => installed }
 package { 'zsh': ensure => installed }
 
+$vboxgroup = $::virtual ? {
+  'physical'   => 'vboxusers',
+  'virtualbox' => 'vboxsf',
+}
+
 user { 'tom':
+  groups  => [ 'dialout', 'wheel', $vboxgroup, ],
   home    => '/home/tom',
   shell   => '/bin/zsh',
   require => Package['zsh'],
 }
+
+class { 'kde::autologin': user => 'tom' }
 
 users::dotfile { [
   'aliases',
@@ -50,6 +60,12 @@ users::dotfile { [ 'ssh/config', 'ssh/known_hosts' ]: user => 'tom', mode => '06
 users::dotfile { 'zsh': user => 'tom', recurse => true }
 
 users::dropbox { 'tom': }
+
+users::kdeconfig { 'disable_compositing': user => 'tom', file => 'kwinrc', group => 'Compositing', key => 'Enabled', value => false }
+users::kdeconfig { 'font_aliasing': user => 'tom', group => 'General', key => 'XftAntialias', value => 'true' }
+users::kdeconfig { 'font_aliasing_hinting': user => 'tom', group => 'General', key => 'XftHintStyle', value => 'slight' }
+users::kdeconfig { 'font_aliasing_subpixel': user => 'tom', group => 'General', key => 'XftSubPixel', value => 'rgb' }
+users::kdeconfig { 'oxygen_theme': user => 'tom', file => 'plasmarc', group => 'Theme', key => 'name', value => 'oxygen' }
 
 #users::rvm { 'tom': }
 
