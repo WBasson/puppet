@@ -17,6 +17,7 @@ package { 'elinks': ensure => installed }
 package { 'firefox': ensure => installed }
 package { [ 'gimp', 'gimp-data-extras' ]: ensure => installed }
 package { 'git': ensure => installed }
+package { 'inkscape': ensure => installed }
 package { 'java-1.7.0-openjdk': ensure => installed }
 package { 'mcollective-client': ensure => installed }
 package { 'puppet': ensure => installed }
@@ -59,8 +60,11 @@ users::dotfile { [
 users::dotfile { [ 'ssh/config', 'ssh/known_hosts' ]: user => 'tom', mode => '0600' }
 users::dotfile { 'zsh': user => 'tom', recurse => true }
 
-users::dropbox { 'tom': }
+if $::virtual == 'physical' {
+  users::dropbox { 'tom': }
+}
 
+users::kdeconfig { 'app_launcher_shortcut': user => 'tom', file => 'kglobalshortcutsrc', group => 'plasma-desktop', key => 'activate widget 2', value => 'Alt+F1,Alt+F1,Activate Application Launcher Widget' }
 users::kdeconfig { 'disable_compositing': user => 'tom', file => 'kwinrc', group => 'Compositing', key => 'Enabled', value => false }
 users::kdeconfig { 'font_aliasing': user => 'tom', group => 'General', key => 'XftAntialias', value => 'true' }
 users::kdeconfig { 'font_aliasing_hinting': user => 'tom', group => 'General', key => 'XftHintStyle', value => 'slight' }
