@@ -1,9 +1,17 @@
 class clitools {
 
-  package { [ 'colordiff' ]: ensure => installed }
-  package { [ 'htop', 'iftop', 'iotop' ]: ensure => installed }
-  package { [ 'pwgen' ]: ensure => installed }
-  package { [ 'strace' ]: ensure => installed }
-  package { [ 'whois' ]: ensure => installed }
+  $packages = [
+    'colordiff',
+    'htop',
+    'iftop',
+    'iotop',
+    'nmap',
+    'pwgen',
+    'strace',
+    'tcpdump',
+    'whois',
+  ]
+
+  package { $packages: ensure => installed }
 
 }
