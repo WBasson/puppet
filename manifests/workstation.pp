@@ -29,7 +29,10 @@ package { $::operatingsystem ? {
 package { [ 'gimp', 'gimp-data-extras' ]: ensure => installed }
 package { 'git': ensure => installed }
 package { 'inkscape': ensure => installed }
-package { 'java-1.7.0-openjdk': ensure => installed }
+package { $::operatingsystem ? {
+  'Debian' => [ 'openjdk-6-jre', 'openjdk-7-jre' ],
+  'Fedora' => 'java-1.7.0-openjdk',
+}: ensure => installed }
 package { 'mcollective-client': ensure => installed }
 package { 'puppet': ensure => installed }
 package { 'qmpdclient': ensure => installed }
@@ -45,26 +48,36 @@ package { $::operatingsystem ? {
   'Debian' => 'icedove',
   'Fedora' => 'thunderbird',
 }: ensure => installed }
-package { 'vim-enhanced': ensure => installed }
+package { $::operatingsystem ? {
+  'Debian' => 'vim',
+  'Fedora' => 'vim-enhanced',
+}: ensure => installed }
 package { $::operatingsystem ? {
   'Debian' => 'wireshark',
   'Fedora' => 'wireshark-gnome',
 }: ensure => installed }
 package { 'zsh': ensure => installed }
 
-$vboxgroup = $::virtual ? {
+$common_groups =  [ 'dialout', 'sudo', 'wireshark', $::virtual ? {
   'physical'   => 'vboxusers',
   'virtualbox' => 'vboxsf',
+} ]
+
+$groups = $::operatingsystem ? {
+  'Debian' => concat($common_groups, [ 'adm', 'cdrom', 'fuse', 'plugdev', 'lpadmin' ]),
+  'Fedora' => concat($common_groups, [ 'wheel' ]),
 }
 
 user { $username:
-  groups  => [ 'dialout', 'wheel', $vboxgroup, ],
-  home    => '/home/tom',
+  groups  => $groups,
+  home    => "/home/${username}",
   shell   => '/bin/zsh',
   require => Package['zsh'],
 }
 
-class { 'kde::autologin': user => $username }
+if $::operatingsystem == 'Fedora' {
+  class { 'kde::autologin': user => $username }
+}
 
 users::dotfile { [
   'aliases',
@@ -87,9 +100,9 @@ if $::virtual == 'physical' {
 
 users::kdeconfig { 'app_launcher_shortcut': user => $username, file => 'kglobalshortcutsrc', group => 'plasma-desktop', key => 'activate widget 2', value => 'Alt+F1,Alt+F1,Activate Application Launcher Widget' }
 users::kdeconfig { 'disable_compositing': user => $username, file => 'kwinrc', group => 'Compositing', key => 'Enabled', value => false }
-users::kdeconfig { 'font_aliasing': user => $username, group => 'General', key => 'XftAntialias', value => 'true' }
-users::kdeconfig { 'font_aliasing_hinting': user => $username, group => 'General', key => 'XftHintStyle', value => 'slight' }
-users::kdeconfig { 'font_aliasing_subpixel': user => $username, group => 'General', key => 'XftSubPixel', value => 'rgb' }
+#users::kdeconfig { 'font_aliasing': user => $username, group => 'General', key => 'XftAntialias', value => 'true' }
+#users::kdeconfig { 'font_aliasing_hinting': user => $username, group => 'General', key => 'XftHintStyle', value => 'slight' }
+#users::kdeconfig { 'font_aliasing_subpixel': user => $username, group => 'General', key => 'XftSubPixel', value => 'rgb' }
 users::kdeconfig { 'oxygen_theme': user => $username, file => 'plasmarc', group => 'Theme', key => 'name', value => 'oxygen' }
 
 #users::rvm { $username: }
