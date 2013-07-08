@@ -20,6 +20,7 @@ package { 'java-1.7.0-openjdk': ensure => installed }
 package { 'mcollective-client': ensure => installed }
 package { 'puppet': ensure => installed }
 package { 'qmpdclient': ensure => installed }
+package { 'quassel-client': ensure => installed }
 package { [ 'remmina', 'remmina-plugins-nx', 'remmina-plugins-vnc' ]: ensure => installed }
 package { [ 'ruby', 'rubygems' ]: ensure => installed }
 package { [ 'screen', 'tmux' ]: ensure => installed }
