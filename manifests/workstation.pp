@@ -8,6 +8,7 @@ $username = $::hostname ? {
   'tomb-desktop' => 'tomb',
 }
 
+include chrome
 include clitools
 include devtools
 include kerberos
@@ -15,7 +16,6 @@ include openssh
 include stdlib
 
 if $::operatingsystem == 'Fedora' {
-  include chrome
   include skype
 }
 
