@@ -13,11 +13,8 @@ include clitools
 include devtools
 include kerberos
 include openssh
+include skype
 include stdlib
-
-if $::operatingsystem == 'Fedora' {
-  include skype
-}
 
 package { 'clementine': ensure => installed }
 package { [ 'clusterssh', 'pssh' ]: ensure => installed }
@@ -40,7 +37,10 @@ package { $::operatingsystem ? {
   'Debian' => [ 'remmina', 'remmina-plugin-nx', 'remmina-plugin-vnc' ],
   'Fedora' => [ 'remmina', 'remmina-plugins-nx', 'remmina-plugins-vnc' ],
 }: ensure => installed }
-package { 'quassel-client': ensure => installed }
+package { $::operatingsystem ? {
+  'Debian' => 'quassel-client-kde4',
+  'Fedora' => 'quassel-client',
+}: ensure => installed }
 package { [ 'ruby', 'rubygems' ]: ensure => installed }
 package { [ 'screen', 'tmux' ]: ensure => installed }
 package { 'synergy': ensure => installed }
