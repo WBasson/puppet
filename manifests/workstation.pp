@@ -32,19 +32,20 @@ package { 'vim-enhanced': ensure => installed }
 package { 'wireshark-gnome': ensure => installed }
 package { 'zsh': ensure => installed }
 
-$vboxgroup = $::virtual ? {
-  'physical'   => 'vboxusers',
-  'virtualbox' => 'vboxsf',
-}
+#$vboxgroup = $::virtual ? {
+#  'physical'   => 'vboxusers',
+#  'virtualbox' => 'vboxsf',
+#}
 
 user { 'tom':
-  groups  => [ 'dialout', 'wheel', $vboxgroup, ],
+  #groups  => [ 'dialout', 'wheel', $vboxgroup ],
+  groups  => [ 'dialout', 'wheel' ],
   home    => '/home/tom',
   shell   => '/bin/zsh',
   require => Package['zsh'],
 }
 
-class { 'kde::autologin': user => 'tom' }
+#class { 'kde::autologin': user => 'tom' }
 
 users::dotfile { [
   'aliases',
