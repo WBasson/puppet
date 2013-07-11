@@ -6,10 +6,14 @@ Exec {
 include chrome
 include clitools
 include devtools
+include insync
 include kerberos
 include openssh
 include skype
 include stdlib
+if $::virtual == 'physical' {
+  include virtualbox
+}
 
 package { 'clementine': ensure => installed }
 package { [ 'clusterssh', 'pssh' ]: ensure => installed }
@@ -32,17 +36,17 @@ package { 'vim-enhanced': ensure => installed }
 package { 'wireshark-gnome': ensure => installed }
 package { 'zsh': ensure => installed }
 
-#$vboxgroup = $::virtual ? {
-#  'physical'   => 'vboxusers',
-#  'virtualbox' => 'vboxsf',
-#}
+$vboxgroup = $::virtual ? {
+  'physical'   => 'vboxusers',
+  'virtualbox' => 'vboxsf',
+}
 
 user { 'tom':
-  #groups  => [ 'dialout', 'wheel', $vboxgroup ],
-  groups  => [ 'dialout', 'wheel' ],
+  groups  => [ 'dialout', 'wheel', $vboxgroup ],
+  #groups  => [ 'dialout', 'wheel' ],
   home    => '/home/tom',
   shell   => '/bin/zsh',
-  require => Package['zsh'],
+  require => [ Class['virtualbox::package'], Package['zsh'] ],
 }
 
 #class { 'kde::autologin': user => 'tom' }
@@ -66,12 +70,12 @@ if $::virtual == 'physical' {
   users::dropbox { 'tom': }
 }
 
-users::kdeconfig { 'app_launcher_shortcut': user => 'tom', file => 'kglobalshortcutsrc', group => 'plasma-desktop', key => 'activate widget 2', value => 'Alt+F1,Alt+F1,Activate Application Launcher Widget' }
-users::kdeconfig { 'disable_compositing': user => 'tom', file => 'kwinrc', group => 'Compositing', key => 'Enabled', value => false }
-users::kdeconfig { 'font_aliasing': user => 'tom', group => 'General', key => 'XftAntialias', value => 'true' }
-users::kdeconfig { 'font_aliasing_hinting': user => 'tom', group => 'General', key => 'XftHintStyle', value => 'slight' }
-users::kdeconfig { 'font_aliasing_subpixel': user => 'tom', group => 'General', key => 'XftSubPixel', value => 'rgb' }
-users::kdeconfig { 'oxygen_theme': user => 'tom', file => 'plasmarc', group => 'Theme', key => 'name', value => 'oxygen' }
+#users::kdeconfig { 'app_launcher_shortcut': user => 'tom', file => 'kglobalshortcutsrc', group => 'plasma-desktop', key => 'activate widget 2', value => 'Alt+F1,Alt+F1,Activate Application Launcher Widget' }
+#users::kdeconfig { 'disable_compositing': user => 'tom', file => 'kwinrc', group => 'Compositing', key => 'Enabled', value => false }
+#users::kdeconfig { 'font_aliasing': user => 'tom', group => 'General', key => 'XftAntialias', value => 'true' }
+#users::kdeconfig { 'font_aliasing_hinting': user => 'tom', group => 'General', key => 'XftHintStyle', value => 'slight' }
+#users::kdeconfig { 'font_aliasing_subpixel': user => 'tom', group => 'General', key => 'XftSubPixel', value => 'rgb' }
+#users::kdeconfig { 'oxygen_theme': user => 'tom', file => 'plasmarc', group => 'Theme', key => 'name', value => 'oxygen' }
 
 #users::rvm { 'tom': }
 
