@@ -8,6 +8,16 @@ class devtools {
       'gcc',
       'kernel-devel',
       'kernel-headers',
+      'gcc-c++',
+      'readline-devel',
+      'zlib-devel',
+      'libyaml-devel',
+      'libffi-devel',
+      'openssl-devel',
+      'autoconf',
+      'automake',
+      'libtool',
+      'bison'
     ],
   }
 

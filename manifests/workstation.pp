@@ -10,11 +10,18 @@ include clitools
 include devtools
 include insync
 include kerberos
+include multimedia
 include openssh
+#include ruby
 include skype
 include stdlib
+
 if $::virtual == 'physical' {
   include virtualbox
+}
+
+if $::operatingsystem == 'Fedora' {
+  include yum::rpmfusion
 }
 
 package { 'clementine': ensure => installed }
@@ -31,9 +38,11 @@ package { $::operatingsystem ? {
   'Debian' => [ 'openjdk-6-jre', 'openjdk-7-jre' ],
   'Fedora' => 'java-1.7.0-openjdk',
 }: ensure => installed }
+package { 'kate': ensure => installed }
 package { 'mcollective-client': ensure => installed }
 package { 'puppet': ensure => installed }
 package { 'qmpdclient': ensure => installed }
+package { 'quassel-client': ensure => installed }
 package { $::operatingsystem ? {
   'Debian' => [ 'remmina', 'remmina-plugin-nx', 'remmina-plugin-vnc' ],
   'Fedora' => [ 'remmina', 'remmina-plugins-nx', 'remmina-plugins-vnc' ],
