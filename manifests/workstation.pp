@@ -8,12 +8,18 @@ include clitools
 include devtools
 include insync
 include kerberos
+include multimedia
 include openssh
 #include ruby
 include skype
 include stdlib
+
 if $::virtual == 'physical' {
   include virtualbox
+}
+
+if $::operatingsystem == 'Fedora' {
+  include yum::rpmfusion
 }
 
 package { 'clementine': ensure => installed }
