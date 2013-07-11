@@ -2,8 +2,8 @@
 
 # Determine SSH host/IP from final parameter and build ssh arguments
 HOST_SPEC=$@[-1]
-SSH_USER="${HOST_SPEC%@*}"
 SSH_HOST="${HOST_SPEC##*@}"
+[ "${HOST_SPEC%@*}" != "${SSH_HOST}" ] && SSH_USER="${HOST_SPEC%@*}"
 SSH_ARGS="${@%$HOST_SPEC}"
 
 # Some debugging
