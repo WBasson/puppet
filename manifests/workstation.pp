@@ -15,6 +15,7 @@ include openssh
 #include ruby
 include skype
 include stdlib
+include wireshark
 
 if $::virtual == 'physical' {
   include virtualbox
@@ -42,14 +43,13 @@ package { 'kate': ensure => installed }
 package { 'mcollective-client': ensure => installed }
 package { 'puppet': ensure => installed }
 package { 'qmpdclient': ensure => installed }
-package { 'quassel-client': ensure => installed }
-package { $::operatingsystem ? {
-  'Debian' => [ 'remmina', 'remmina-plugin-nx', 'remmina-plugin-vnc' ],
-  'Fedora' => [ 'remmina', 'remmina-plugins-nx', 'remmina-plugins-vnc' ],
-}: ensure => installed }
 package { $::operatingsystem ? {
   'Debian' => 'quassel-client-kde4',
   'Fedora' => 'quassel-client',
+}: ensure => installed }
+package { $::operatingsystem ? {
+  'Debian' => [ 'remmina', 'remmina-plugin-nx', 'remmina-plugin-vnc' ],
+  'Fedora' => [ 'remmina', 'remmina-plugins-nx', 'remmina-plugins-vnc' ],
 }: ensure => installed }
 package { [ 'ruby', 'rubygems' ]: ensure => installed }
 package { [ 'screen', 'tmux' ]: ensure => installed }
@@ -62,19 +62,15 @@ package { $::operatingsystem ? {
   'Debian' => 'vim',
   'Fedora' => 'vim-enhanced',
 }: ensure => installed }
-package { $::operatingsystem ? {
-  'Debian' => 'wireshark',
-  'Fedora' => 'wireshark-gnome',
-}: ensure => installed }
 package { 'zsh': ensure => installed }
 
-$common_groups =  [ 'dialout', 'sudo', 'wireshark', $::virtual ? {
+$common_groups =  [ 'dialout', 'wireshark', $::virtual ? {
   'physical'   => 'vboxusers',
   'virtualbox' => 'vboxsf',
 } ]
 
 $groups = $::operatingsystem ? {
-  'Debian' => concat($common_groups, [ 'adm', 'cdrom', 'fuse', 'plugdev', 'lpadmin' ]),
+  'Debian' => concat($common_groups, [ 'adm', 'cdrom', 'fuse', 'plugdev', 'lpadmin', 'sudo' ]),
   'Fedora' => concat($common_groups, [ 'wheel' ]),
 }
 
@@ -82,7 +78,7 @@ user { $username:
   groups  => $groups,
   home    => "/home/${username}",
   shell   => '/bin/zsh',
-  require => [ Class['virtualbox::package'], Package['zsh'] ],
+  require => [ Class['virtualbox::package'], Class['wireshark'], Package['zsh'] ],
 }
 
 if $::operatingsystem == 'Fedora' {

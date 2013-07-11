@@ -1,5 +1,7 @@
 class skype {
 
+  include skype::dependencies
+
   $version = '4.2.0.11'
 
   case $::operatingsystem {
