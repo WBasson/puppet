@@ -12,7 +12,7 @@ include insync
 include kerberos
 include multimedia
 include openssh
-#include ruby
+include ruby
 include skype
 include stdlib
 include wireshark
@@ -51,7 +51,6 @@ package { $::operatingsystem ? {
   'Debian' => [ 'remmina', 'remmina-plugin-nx', 'remmina-plugin-vnc' ],
   'Fedora' => [ 'remmina', 'remmina-plugins-nx', 'remmina-plugins-vnc' ],
 }: ensure => installed }
-package { [ 'ruby', 'rubygems' ]: ensure => installed }
 package { [ 'screen', 'tmux' ]: ensure => installed }
 package { 'synergy': ensure => installed }
 package { $::operatingsystem ? {

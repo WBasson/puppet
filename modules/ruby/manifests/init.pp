@@ -1,4 +1,4 @@
-class rubygems {
+class ruby {
 
   include devtools
 
