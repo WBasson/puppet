@@ -3,18 +3,19 @@ Exec {
   timeout => 0,
 }
 
-$username = $::hostname ? {
-  /hamlet(.+)/   => 'tom',
-  'tomb-desktop' => 'tomb',
-}
+$username = 'tom'
 
 include chrome
 include clitools
 include devtools
+include insync
 include kerberos
 include openssh
 include skype
 include stdlib
+if $::virtual == 'physical' {
+  include virtualbox
+}
 
 package { 'clementine': ensure => installed }
 package { [ 'clusterssh', 'pssh' ]: ensure => installed }
@@ -72,11 +73,11 @@ user { $username:
   groups  => $groups,
   home    => "/home/${username}",
   shell   => '/bin/zsh',
-  require => Package['zsh'],
+  require => [ Class['virtualbox::package'], Package['zsh'] ],
 }
 
 if $::operatingsystem == 'Fedora' {
-  class { 'kde::autologin': user => $username }
+  #class { 'kde::autologin': user => $username }
 }
 
 users::dotfile { [
@@ -98,12 +99,12 @@ if $::virtual == 'physical' {
   users::dropbox { $username: }
 }
 
-users::kdeconfig { 'app_launcher_shortcut': user => $username, file => 'kglobalshortcutsrc', group => 'plasma-desktop', key => 'activate widget 2', value => 'Alt+F1,Alt+F1,Activate Application Launcher Widget' }
-users::kdeconfig { 'disable_compositing': user => $username, file => 'kwinrc', group => 'Compositing', key => 'Enabled', value => false }
+#users::kdeconfig { 'app_launcher_shortcut': user => $username, file => 'kglobalshortcutsrc', group => 'plasma-desktop', key => 'activate widget 2', value => 'Alt+F1,Alt+F1,Activate Application Launcher Widget' }
+#users::kdeconfig { 'disable_compositing': user => $username, file => 'kwinrc', group => 'Compositing', key => 'Enabled', value => false }
 #users::kdeconfig { 'font_aliasing': user => $username, group => 'General', key => 'XftAntialias', value => 'true' }
 #users::kdeconfig { 'font_aliasing_hinting': user => $username, group => 'General', key => 'XftHintStyle', value => 'slight' }
 #users::kdeconfig { 'font_aliasing_subpixel': user => $username, group => 'General', key => 'XftSubPixel', value => 'rgb' }
-users::kdeconfig { 'oxygen_theme': user => $username, file => 'plasmarc', group => 'Theme', key => 'name', value => 'oxygen' }
+#users::kdeconfig { 'oxygen_theme': user => $username, file => 'plasmarc', group => 'Theme', key => 'name', value => 'oxygen' }
 
 #users::rvm { $username: }
 
