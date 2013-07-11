@@ -15,6 +15,7 @@ include openssh
 include ruby
 include skype
 include stdlib
+include vagrant
 include wireshark
 
 if $::virtual == 'physical' {
