@@ -9,6 +9,7 @@ include devtools
 include insync
 include kerberos
 include openssh
+#include ruby
 include skype
 include stdlib
 if $::virtual == 'physical' {
@@ -23,12 +24,12 @@ package { [ 'gimp', 'gimp-data-extras' ]: ensure => installed }
 package { 'git': ensure => installed }
 package { 'inkscape': ensure => installed }
 package { 'java-1.7.0-openjdk': ensure => installed }
+package { 'kate': ensure => installed }
 package { 'mcollective-client': ensure => installed }
 package { 'puppet': ensure => installed }
 package { 'qmpdclient': ensure => installed }
 package { 'quassel-client': ensure => installed }
 package { [ 'remmina', 'remmina-plugins-nx', 'remmina-plugins-vnc' ]: ensure => installed }
-package { [ 'ruby', 'rubygems' ]: ensure => installed }
 package { [ 'screen', 'tmux' ]: ensure => installed }
 package { 'synergy': ensure => installed }
 package { 'thunderbird': ensure => installed }

@@ -13,4 +13,8 @@ class virtualbox::package {
     require => Class['virtualbox::repository'],
   }
 
+  if ! defined(Package['dkms']) {
+    package { 'dkms': ensure => installed }
+  }
+
 }
