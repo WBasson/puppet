@@ -92,7 +92,7 @@ Port 22
 StrictHostKeyChecking ask
 User git
 
-Host github-with-hetzner-key
+Host github-with-hetz-key
 HostName github.com
 IdentityFile ~/.ssh/keys/tom.bamford@hetzner.co.za.key
 Port 22
