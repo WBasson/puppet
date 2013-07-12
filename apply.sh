@@ -4,6 +4,13 @@
 DIR="$(cd "$(dirname "$0")" && pwd)"
 PWD="$(pwd)"; cd "$DIR"
 
+# Determine manifest to apply
+if [ -n "$1" ]; then
+  MANIFEST="$1"
+else
+  MANIFEST="workstation"
+fi
+
 # Initialise git submodules
 git submodule status | egrep -q '^-[0-9a-zA-Z]+' && git submodule update --init
 
@@ -24,7 +31,7 @@ fi
 
 # Perform puppet run
 [ $(id -u) -ne 0 ] && SUDO="sudo -H"
-echo $SUDO puppet apply --modulepath "$DIR/modules" "$DIR/manifests/workstation.pp"
+echo $SUDO puppet apply --modulepath "$DIR/modules" "$DIR/manifests/$MANIFEST.pp"
 
 # Change directory to where we were
 #cd "$PWD"
