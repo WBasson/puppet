@@ -7,10 +7,10 @@ $username = 'tom.b'
 
 #package { 'zsh': ensure => installed }
 
-#user { $username:
-#  shell   => '/bin/zsh',
-#  require => Package['zsh'],
-#}
+user { $username:
+  #shell   => '/bin/zsh',
+  #require => Package['zsh'],
+}
 
 users::dotfile { [
   'aliases',
