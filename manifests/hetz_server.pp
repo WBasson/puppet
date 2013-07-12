@@ -4,10 +4,12 @@ Exec {
 }
 
 $username = 'tom.b'
+$group = 'staff'
 
 #package { 'zsh': ensure => installed }
 
 user { $username:
+  group    => $group,
   #shell   => '/bin/zsh',
   #require => Package['zsh'],
 }
@@ -23,9 +25,9 @@ users::dotfile { [
   'shell_colours',
   'vimrc',
   'zshrc',
-]: user => $username }
-users::dotfile { [ 'ssh/config', 'ssh/known_hosts' ]: user => $username, mode => '0600' }
-users::dotfile { 'zsh': user => $username, recurse => true }
+]: user => $username, group => $group }
+users::dotfile { [ 'ssh/config', 'ssh/known_hosts' ]: user => $username, group => $group, mode => '0600' }
+users::dotfile { 'zsh': user => $username, group => $group, recurse => true }
 
 users::script { [
   'env-push.sh',
@@ -33,9 +35,9 @@ users::script { [
   'hetz-qualify-hostname.sh',
   's',
   'ssh-add-keys.sh',
-]: user => $username }
+]: user => $username, group => $group }
 
-users::vim { $username: }
+users::vim { $username: group => $group }
 users::vimbundle { [
   'colorschemes',
   'fugitive',
@@ -44,4 +46,4 @@ users::vimbundle { [
   'rails',
   'ruby',
   'syntastic',
-]: user => $username }
+]: user => $username, group => $group }
