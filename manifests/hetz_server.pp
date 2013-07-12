@@ -9,7 +9,7 @@ $group = 'staff'
 #package { 'zsh': ensure => installed }
 
 user { $username:
-  group    => $group,
+  gid      => $group,
   #shell   => '/bin/zsh',
   #require => Package['zsh'],
 }
