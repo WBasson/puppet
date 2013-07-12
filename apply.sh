@@ -33,7 +33,7 @@ fi
 
 # Perform puppet run
 [ $(id -u) -ne 0 ] && SUDO="sudo -H"
-echo $SUDO puppet apply --modulepath "$DIR/modules" "$DIR/manifests/$MANIFEST.pp"
+$SUDO puppet apply --modulepath "$DIR/modules" "$DIR/manifests/$MANIFEST.pp"
 
 # Change directory to where we were
 #cd "$PWD"
