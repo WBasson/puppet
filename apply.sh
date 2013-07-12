@@ -23,7 +23,8 @@ if [ -f "$KNOWN_HOSTS_REAL" ] && [ "$KNOWN_HOSTS_REAL" -nt "$KNOWN_HOSTS_REPO" ]
 fi
 
 # Perform puppet run
-sudo -H puppet apply --modulepath "$DIR/modules" "$DIR/manifests/workstation.pp"
+[ $(id -u) -ne 0 ] && SUDO="sudo -H"
+echo $SUDO puppet apply --modulepath "$DIR/modules" "$DIR/manifests/workstation.pp"
 
 # Change directory to where we were
 #cd "$PWD"
