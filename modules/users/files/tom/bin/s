@@ -3,7 +3,14 @@
 # Determine SSH host/IP from final parameter and build ssh arguments
 HOST_SPEC=$@[-1]
 SSH_HOST="${HOST_SPEC##*@}"
+[ "${HOST_SPEC%@*}" != "${SSH_HOST}" ] && SSH_USER="${HOST_SPEC%@*}"
 SSH_ARGS="${@%$HOST_SPEC}"
+
+# Some debugging
+#echo SSH_USER = $SSH_USER
+#echo SSH_HOST = $SSH_HOST
+#echo SSH_ARGS = $SSH_ARGS
+#exit 1
 
 # Default hostname when not specified
 [ -z "$SSH_HOST" ] && SSH_HOST=sysadmin1.lon.atpla.net
@@ -49,6 +56,9 @@ elif [[ $SSH_HOST =~ \.host-h\.net$ ]]; then
   fi
 fi
 
+# Set user param if specified
+[ -n "$SSH_USER" ] && USER_PARAM="$SSH_USER@"
+
 # SSH to remote host and (re)attach labelled screen
 echo Initiating connection to $SSH_HOST ...
-ssh -t $=SSH_ARGS $SSH_HOST $COMMAND
+ssh -t $=SSH_ARGS $USER_PARAM$SSH_HOST $COMMAND

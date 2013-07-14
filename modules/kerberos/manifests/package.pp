@@ -1,7 +1,8 @@
 class kerberos::package {
 
-  package { 'krb5-workstation':
-    ensure => installed,
-  }
+  package { $::operatingsystem ? {
+    'Debian' => 'krb5-user',
+    'Fedora' => 'krb5-workstation',
+  }: ensure => installed }
 
 }

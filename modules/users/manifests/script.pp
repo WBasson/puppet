@@ -1,4 +1,4 @@
-define users::script($user, $home = "/home/$user") {
+define users::script($user, $group = $user, $home = "/home/$user") {
 
   $path = "${home}/bin"
 
@@ -6,14 +6,14 @@ define users::script($user, $home = "/home/$user") {
     file { $path:
       ensure => directory,
       owner  => $user,
-      group  => $user,
+      group  => $group,
       mode   => '0755',
     }   
   }
 
   file { "${path}/${name}":
     owner   => $user,
-    group   => $user,
+    group   => $group,
     mode    => '0755',
     source  => "puppet:///modules/users/${user}/bin/${name}",
   }

@@ -1,6 +1,11 @@
 class openssh::package {
 
-  package { [ 'openssh-clients', 'openssh-server' ]:
+  $packages = $::operatingsystem ? {
+    'Debian' => [ 'openssh-client', 'openssh-server' ],
+    'Fedora' => [ 'openssh-clients', 'openssh-server' ],
+  }
+
+  package { $packages:
     ensure => installed,
   }
 
