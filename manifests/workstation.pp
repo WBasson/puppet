@@ -8,7 +8,13 @@ if $::hostname =~ /^(hamlet(-vm)?|tomb-(dell|desktop|laptop|workstation))$/ {
   $role = 'default'
 }
 
-notify { 'role': message => "Applying role: ${role}" }
+if $::domain =~ /.+\.host-h\.net/ {
+  $location = 'hetzner'
+} else {
+  $location = 'roaming'
+}
+
+notify { 'role_location': message => "Applying role \"${role}\" at location \"${location}\"" }
 
 Exec {
   path    => '/bin:/sbin:/usr/bin:/usr/sbin',
@@ -35,10 +41,12 @@ case $role {
     include devtools
     include insync
     include kerberos
+    include ldap
     include multimedia
     include openssh
     include ruby
     include skype
+    include ssl
     include vagrant
     include wireshark
 
@@ -160,6 +168,7 @@ users::dotfile { [
   'env',
   'gitconfig',
   'gitignore_global',
+  'ldaprc',
   'profile',
   'screenrc',
   'shell_colours',

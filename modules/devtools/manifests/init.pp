@@ -18,6 +18,7 @@ class devtools {
       'libxslt-devel',
       'libyaml-devel',
       'mysql-devel',
+      'openldap-devel',
       'openssl-devel',
       'postgresql-devel',
       'qtwebkit-devel',
