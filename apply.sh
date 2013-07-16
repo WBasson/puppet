@@ -38,7 +38,7 @@ fi
 
 # Perform puppet run
 [ $(id -u) -ne 0 ] && SUDO="sudo -H"
-$SUDO puppet apply --modulepath "$DIR/modules" "$DIR/manifests/$MANIFEST.pp"
+$SUDO puppet apply --color ansi --modulepath "$DIR/modules" "$DIR/manifests/$MANIFEST.pp"
 
 # Exit with status code
 exit $?
