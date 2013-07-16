@@ -62,6 +62,7 @@ Port 22
 User tf2
 
 Host ghe1.cpt1.host-h.net
+IdentityFile ~/.ssh/keys/tom.bamford@hetzner.co.za.key
 Port 22
 User git
 
