@@ -2,7 +2,7 @@
 
 # Determine correct directory and change into it
 DIR="$(cd "$(dirname "$0")" && pwd)"
-PWD="$(pwd)"; cd "$DIR"
+cd "$DIR"
 
 # Determine manifest to apply
 if [ -n "$1" ]; then
@@ -35,5 +35,5 @@ fi
 [ $(id -u) -ne 0 ] && SUDO="sudo -H"
 $SUDO puppet apply --modulepath "$DIR/modules" "$DIR/manifests/$MANIFEST.pp"
 
-# Change directory to where we were
-#cd "$PWD"
+# Exit with status code
+exit $?

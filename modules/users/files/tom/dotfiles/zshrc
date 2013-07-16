@@ -49,6 +49,8 @@ autoload -U regexp-replace
 RVM=$HOME/.rvm/scripts/rvm
 [[ -e $RVM ]] && source $RVM
 
-# Ensure that 's' completes in the same manner as 'ssh'
-compdef s=ssh
+# Ensure that various commands allow shell completion in the same manner as 'ssh'
+for C in env-push.sh s scp; do
+  compdef $C=ssh
+done
 

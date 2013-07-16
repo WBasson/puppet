@@ -15,7 +15,7 @@ REMOTE_DIR="/home/$REMOTE_USER"
 PUPPET_DIR="$REMOTE_DIR/puppet"
 PUPPET_REPO_R="git://github.com/tombamford/puppet.git"
 PUPPET_REPO_W="ssh://github-with-hetz-key/tombamford/puppet.git"
-PUPPET_MANIFEST="hetz_server"
+PUPPET_MANIFEST="workstation"
 PUPPETHETZ_DIR="$REMOTE_DIR/hetz/puppet"
 PUPPETHETZ_REPO="tom.b@vcs.hetzner.co.za:/srv/git/puppet.git"
 
@@ -27,12 +27,6 @@ if ! host $SSH_HOST 2>/dev/null 1>/dev/null; then
   echo "Host not found!" >&2
   exit 1
 fi
-
-#echo "Checking for rump installation ..."
-#if ! ssh -q $=SSH_ARGS $SSH_HOST "[ -x /var/lib/gems/1.8/bin/rump ]"; then
-#  echo "Installing rump from rubygems ..."
-#  ssh -q $=SSH_ARGS $SSH_HOST "gem install rump --no-rdoc --no-ri && ln -s /var/lib/gems/1.8/bin/rump /usr/local/bin/rump"
-#fi
 
 ssh_command() {
   ssh -q $=SSH_ARGS $SSH_HOST "$1"
@@ -54,13 +48,13 @@ else
                sudo -H -u $REMOTE_USER git checkout master && sudo -H -u $REMOTE_USER git pull origin master"
 fi
 
+echo "Setting push url for tombamford/puppet repo ..."
+ssh_command "cd $PUPPET_DIR && sudo -H -u $REMOTE_USER git remote set-url --push origin $PUPPET_REPO_W"
+
 echo "Performing puppet run using '$PUPPET_MANIFEST' manifest ..."
 ssh_command "cd $PUPPET_DIR && sudo -H -u $REMOTE_USER ./submodules.sh && \
              $PUPPET_DIR/apply.sh $PUPPET_MANIFEST && \
              chown -R $REMOTE_USER:$REMOTE_GROUP $PUPPET_DIR"
-
-echo "Setting push url for tombamford/puppet repo ..."
-ssh_command "cd $PUPPET_DIR && sudo -H -u $REMOTE_USER git remote set-url --push origin $PUPPET_REPO_W"
 
 echo "Checking for existing hetzner/puppet repo clone ..."
 if ! ssh $=SSH_ARGS $SSH_HOST "ls -d $PUPPETHETZ_DIR/.git 2>/dev/null 1>/dev/null"; then
