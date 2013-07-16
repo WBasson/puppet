@@ -19,6 +19,7 @@ define users::dotfile($user, $group = $user, $home = "/home/$user", $mode = '064
     group   => $group,
     mode    => $mode,
     recurse => $recurse,
+    ignore  => '.git',
     source  => "puppet:///modules/users/$user/dotfiles/$name",
     require => User[$user],
   }
