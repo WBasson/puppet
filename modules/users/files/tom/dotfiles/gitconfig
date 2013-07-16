@@ -1,5 +1,6 @@
 [alias]
 co = checkout
+d = difftool
 g = grep --break --heading --line-number
 graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
 latest = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short) [%(committername)] %(contents:subject)'
@@ -12,6 +13,12 @@ ui = true
 
 [core]
 excludesfile = ~/.gitignore_global
+
+[diff]
+tool = vimdiff
+
+[difftool]
+prompt = false
 
 [grep]
 extendRegexp = true
