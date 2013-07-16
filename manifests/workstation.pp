@@ -135,7 +135,7 @@ case $role {
       's',
       'ssh-add-keys.sh',
       'steam_bootstrap.sh',
-    ]: user => $username }
+    ]: user => $username, group => $group }
 
     if $::virtual == 'physical' {
       users::dropbox { $username: }
@@ -174,12 +174,12 @@ users::dotfile { [
   'shell_colours',
   'vimrc',
   'zshrc',
-]: user => $username }
+]: user => $username, group => $group }
 
-users::dotfile { [ 'ssh/config', 'ssh/known_hosts' ]: user => $username, mode => '0600' }
-users::dotfile { 'zsh': user => $username, recurse => true }
+users::dotfile { [ 'ssh/config', 'ssh/known_hosts' ]: user => $username, group => $group, mode => '0600' }
+users::dotfile { 'zsh': user => $username, group => $group, recurse => true }
 
-users::vim { $username: }
+users::vim { $username: group => $group }
 users::vimbundle { [
   'colorschemes',
   'fugitive',
@@ -188,4 +188,4 @@ users::vimbundle { [
   'rails',
   'ruby',
   'syntastic',
-]: user => $username }
+]: user => $username, group => $group }

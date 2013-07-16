@@ -50,7 +50,7 @@ RVM=$HOME/.rvm/scripts/rvm
 [[ -e $RVM ]] && source $RVM
 
 # Ensure that various commands allow shell completion in the same manner as 'ssh'
-for C in env-push.sh s scp; do
+for C in env-push.sh s; do
   compdef $C=ssh
 done
 

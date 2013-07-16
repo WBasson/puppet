@@ -1,4 +1,4 @@
-define users::gem($user, $group = $user, $home = "/home/$user") {
+define users::gem($user, $home = "/home/$user") {
 
   $gem = $name
 

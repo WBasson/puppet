@@ -1,4 +1,4 @@
-define users::rvm($home = "/home/$name", $gems = []) {
+define users::rvm($group = $name, $home = "/home/$name", $gems = []) {
 
   $user = $name
   $install = "install-rvm-for-$user"
@@ -24,7 +24,7 @@ define users::rvm($home = "/home/$name", $gems = []) {
     environment => "HOME=$home",
     provider => shell,
     user     => $user,
-    group    => $user,
+    group    => $group,
     creates  => "$home/.rvm",
   }
 
@@ -52,7 +52,7 @@ define users::rvm($home = "/home/$name", $gems = []) {
   $patch_symvis = "$home/.rvm/patches/ruby/1.9.3/symbol-visibility-fix.patch"
   file { $patch_symvis:
     owner   => $user,
-    group   => $user,
+    group   => $group,
     source  => 'puppet:///modules/users/rvm/symbol-visibility-fix.patch',
     require => Exec[$install],
     before  => Exec["install-ruby1.9-for-$user"],
