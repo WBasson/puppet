@@ -3,7 +3,7 @@ class insync::package {
   include insync::repository
 
   package { [ 'insync-beta', 'insync-beta-kde' ]:
-    ensure  => purged,
+    ensure  => absent,
     require => Class['insync::repository'],
   }
 

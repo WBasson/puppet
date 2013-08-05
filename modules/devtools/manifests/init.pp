@@ -23,6 +23,7 @@ class devtools {
       'postgresql-devel',
       'qtwebkit-devel',
       'readline-devel',
+      'sqlite-devel',
       'zlib-devel',
     ],
   }
