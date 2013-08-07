@@ -178,7 +178,7 @@ users::dotfile { [
 ]: user => $username, group => $group }
 
 users::dotfile { [ 'ssh/config', 'ssh/known_hosts' ]: user => $username, group => $group, mode => '0600' }
-users::dotfile { 'zsh': user => $username, group => $group, recurse => true }
+users::dotfile { [ 'pyenv', 'zsh' ]: user => $username, group => $group, recurse => true }
 
 users::vim { $username: group => $group }
 users::vimbundle { [
