@@ -141,6 +141,9 @@ function parse_prompt {
 # Load environment variables
 [ -e $HOME/.env ] && source $HOME/.env
 
+# Initialise pyenv
+eval "$(pyenv init -)"
+
 # Load Ruby Version Manager
 RVM=$HOME/.rvm/scripts/rvm
 [[ -e $RVM ]] && source $RVM

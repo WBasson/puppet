@@ -45,6 +45,9 @@ unsetopt share_history
 # Load regexp-replace function
 autoload -U regexp-replace
 
+# Initialise pyenv
+eval "$(pyenv init -)"
+
 # Load Ruby Version Manager
 RVM=$HOME/.rvm/scripts/rvm
 [[ -e $RVM ]] && source $RVM

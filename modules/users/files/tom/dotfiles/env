@@ -31,9 +31,6 @@ PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr
 # Look for Vagrant
 [ -d /opt/vagrant/bin ] && PATH=$PATH:/opt/vagrant/bin
 
-# Look for Steam
-[ -d /opt/steam/Steam/debian_bin ] && PATH=/opt/steam/Steam/debian_bin:$PATH
-
 # Look for MacPorts
 [ -d /opt/local/bin ] && PATH=/opt/local/bin:$PATH
 
@@ -52,6 +49,12 @@ if [ -d /etc/paths.d ]; then
     done
   done
 fi
+
+# Look for Steam
+[ -d /opt/steam/Steam/debian_bin ] && PATH=/opt/steam/Steam/debian_bin:$PATH
+
+# Add pyenv to PATH
+[ -d $HOME/.pyenv/bin ] && PATH=$HOME/.pyenv/bin:$PATH
 
 # Add RVM to PATH for scripting
 [ -d $HOME/.rvm/bin ] && PATH=$PATH:$HOME/.rvm/bin
