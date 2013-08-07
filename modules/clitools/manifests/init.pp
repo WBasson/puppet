@@ -7,7 +7,6 @@ class clitools {
     'iftop',
     'iotop',
     'nmap',
-    'parallel-scp',
     'perl-LWP-Protocol-https',
     'pssh',
     'pwgen',

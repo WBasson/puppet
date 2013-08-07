@@ -60,7 +60,7 @@ case $role {
 
     package { 'avahi': ensure => installed }
     package { 'clementine': ensure => installed }
-    package { [ 'clusterssh', 'pssh' ]: ensure => installed }
+    package { 'clusterssh': ensure => installed }
     package { 'elinks': ensure => installed }
     package { $::operatingsystem ? {
       'Debian' => 'iceweasel',
