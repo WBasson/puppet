@@ -38,7 +38,8 @@ case $role {
 
     include chrome
     include clitools
-    include devtools
+    include dev::libs
+    include dev::tools
     include insync
     include kerberos
     include ldap
