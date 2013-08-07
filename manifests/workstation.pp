@@ -58,6 +58,7 @@ case $role {
       include yum::rpmfusion
     }
 
+    package { 'avahi': ensure => installed }
     package { 'clementine': ensure => installed }
     package { [ 'clusterssh', 'pssh' ]: ensure => installed }
     package { 'elinks': ensure => installed }
