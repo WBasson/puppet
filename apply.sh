@@ -18,7 +18,7 @@ if [ $(id -u) -ne 0 ]; then
   ./submodules.sh
 
   # Copy updated ssh/known_hosts back into repository and commit (if no other changes are staged)
-  if [ "$MANIFEST" == "workstation" ]; then
+  if [ "$MANIFEST" = "workstation" ]; then
     KNOWN_HOSTS_REAL="$HOME/.ssh/known_hosts"
     KNOWN_HOSTS_REPO="$DIR/modules/users/files/$USER/dotfiles/ssh/known_hosts"
     if [ -f "$KNOWN_HOSTS_REAL" ] && [ "$KNOWN_HOSTS_REAL" -nt "$KNOWN_HOSTS_REPO" ]; then

@@ -1,9 +1,14 @@
 class vagrant {
 
+  $vagrant_version = '1.2.7'
+
   if $::operatingsystem == 'Fedora' {
+
+    $vagrant_rpm_url = "http://files.vagrantup.com/packages/7ec0ee1d00a916f80b109a298bab08e391945243/vagrant_${vagrant_version}_${::architecture}.rpm"
+
     exec { 'install-vagrant':
-      command => 'yum install -y http://files.vagrantup.com/packages/95d308caaecd139b8f62e41e7add0ec3f8ae3bd1/vagrant_1.2.3_x86_64.rpm',
-      unless  => 'rpm -q vagrant-1.2.3',
+      command => "yum install -y ${vagrant_rpm_url}",
+      unless  => "rpm -q vagrant-${vagrant_version}",
     }
   }
 
