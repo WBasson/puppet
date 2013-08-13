@@ -15,7 +15,7 @@ class skype {
       }
 
       exec { 'install-skype':
-        command => 'dpkg -i /tmp/skype.deb; apt-get -y -f install',
+        command => 'dpkg -i /tmp/skype.deb; apt-get -y -f install; dpkg -l | grep skype | grep -q "^ii"',
         unless  => 'dpkg -l | grep skype | grep -q "^ii"',
         require => Exec['download-skype'],
       }

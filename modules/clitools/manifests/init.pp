@@ -7,7 +7,6 @@ class clitools {
     'iftop',
     'iotop',
     'nmap',
-    'perl-LWP-Protocol-https',
     'pssh',
     'pwgen',
     'strace',
@@ -15,8 +14,9 @@ class clitools {
     'whois',
   ]: ensure => installed }
 
-  if $::operatingsystem == 'Fedora' {
-    package { 'yum-utils': ensure => installed }
-  }
+  package { $::operatingsystem ? {
+    'Debian' => 'libwww-perl',
+    'Fedora' => [ 'perl-LWP-Protocol-https', 'yum-utils' ],
+  }: ensure => installed }
 
 }

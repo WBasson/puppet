@@ -8,7 +8,7 @@ if $::hostname =~ /^(hamlet(-vm)?|tomb-(dell|desktop|laptop|workstation)|(debian
   $role = 'default'
 }
 
-if $::domain =~ /.+\.host-h\.net/ {
+if $::domain =~ /(.+\.host-h\.net)|(hetzner\.africa)/ {
   $location = 'hetzner'
 } else {
   $location = 'roaming'
@@ -57,9 +57,13 @@ case $role {
       include virtualbox
     }
 
-    package { 'avahi': ensure => installed }
+    package { $::operatingsystem ? {
+      'Debian' => [ 'avahi-daemon', 'avahi-utils' ],
+      'Fedora' => 'avahi',
+    }: ensure => installed }
     package { 'clementine': ensure => installed }
     package { 'clusterssh': ensure => installed }
+    package { 'cups': ensure => installed }
     package { 'elinks': ensure => installed }
     package { $::operatingsystem ? {
       'Debian' => 'iceweasel',
@@ -96,14 +100,19 @@ case $role {
     }: ensure => installed }
     package { 'zsh': ensure => installed }
 
-    $common_groups =  [ 'dialout', 'wireshark', $::virtual ? {
-      'physical'   => 'vboxusers',
-      'virtualbox' => 'vboxsf',
+    $common_groups =  [ 'dialout', $::virtual ? {
+      'physical' => 'vboxusers',
+      default    => 'vboxsf',
     } ]
 
     $groups = $::operatingsystem ? {
       'Debian' => concat($common_groups, [ 'adm', 'cdrom', 'fuse', 'plugdev', 'lpadmin', 'sudo' ]),
-      'Fedora' => concat($common_groups, [ 'wheel' ]),
+      'Fedora' => concat($common_groups, [ 'lp', 'wheel', 'wireshark' ]),
+    }
+
+    $user_require = $::virtual ? {
+      'physical' => [ Class['virtualbox::package'], Class['wireshark'], Package['cups'], Package['zsh'] ],
+      default    => [ Class['wireshark'], Package['cups'], Package['zsh'] ],
     }
 
     user { $username:
@@ -111,7 +120,7 @@ case $role {
       groups  => $groups,
       home    => "/home/${username}",
       shell   => '/bin/zsh',
-      require => [ Class['virtualbox::package'], Class['wireshark'], Package['zsh'] ],
+      require => $user_require,
     }
 
     if $::operatingsystem == 'Fedora' {
