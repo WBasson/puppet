@@ -1,6 +1,6 @@
 include stdlib
 
-if $::hostname =~ /^(hamlet(-vm)?|tomb-(dell|desktop|laptop|workstation))$/ {
+if $::hostname =~ /^(hamlet(-vm)?|tomb-(dell|desktop|laptop|workstation)|(debian|fedora|ubuntu)-vm)$/ {
   $role = 'workstation'
 } elsif $::domain =~ /.+\.host-h\.net/ {
   $role = 'hetz_server'
@@ -46,17 +46,15 @@ case $role {
     include multimedia
     include openssh
     include ruby
+    include selinux
     include skype
     include ssl
     include vagrant
     include wireshark
+    include yum::rpmfusion
 
     if $::virtual == 'physical' {
       include virtualbox
-    }
-
-    if $::operatingsystem == 'Fedora' {
-      include yum::rpmfusion
     }
 
     package { 'avahi': ensure => installed }
