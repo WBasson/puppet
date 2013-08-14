@@ -6,4 +6,10 @@ class kde::package {
     }
   }
 
+  if $::operatingsystem == 'Fedora' {
+    package { [ 'oxygen-cursor-themes', 'oxygen-icon-theme' ]:
+      ensure => installed,
+    }
+  }
+
 }
