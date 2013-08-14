@@ -178,6 +178,7 @@ users::dotfile { [
   'env',
   'gitconfig',
   'gitignore_global',
+  'hushlogin',
   'ldaprc',
   'profile',
   'screenrc',
