@@ -10,6 +10,7 @@ class vagrant {
       command => "yum install -y ${vagrant_rpm_url}",
       unless  => "rpm -q vagrant-${vagrant_version}",
     }
+
   }
 
 }

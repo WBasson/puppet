@@ -1,7 +1,7 @@
 class ldap::package {
 
   package { $::operatingsystem ? {
-    'Debian' => 'ldaputils',
+    'Debian' => 'ldap-utils',
     'Fedora' => 'openldap-clients',
   }: ensure => installed }
 
