@@ -1,0 +1,38 @@
+AcceptEnv LANG LC_*
+AcceptEnv XMODIFIERS
+AllowAgentForwarding yes
+AllowTcpForwarding yes
+AuthorizedKeysFile .ssh/authorized_keys
+ChallengeResponseAuthentication no
+ClientAliveInterval 60
+ClientAliveCountMax 5
+GSSAPIAuthentication no
+HostbasedAuthentication no
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_dsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+IgnoreRhosts yes
+KeyRegenerationInterval 3600
+LoginGraceTime 120
+LogLevel INFO
+PasswordAuthentication yes
+PermitEmptyPasswords no
+PermitRootLogin yes
+Port 22
+Port 3022
+PrintLastLog yes
+PrintMotd no
+Protocol 2
+PubkeyAuthentication yes
+RhostsRSAAuthentication no
+RSAAuthentication yes
+ServerKeyBits 768
+StrictModes yes
+Subsystem sftp <%= @operatingsystem == 'Debian' ? '/usr/lib/openssh/sftp-server' : '/usr/libexec/openssh/sftp-server' %>
+SyslogFacility <%= @operatingsystem == 'Debian' ? 'AUTH' : 'AUTHPRIV' %>
+TCPKeepAlive yes
+UseDNS no
+UsePAM yes
+UsePrivilegeSeparation sandbox
+X11DisplayOffset 10
+X11Forwarding yes

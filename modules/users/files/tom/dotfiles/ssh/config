@@ -41,33 +41,27 @@ User tombamford
 Host vcs.hetzner.co.za git.hetzner.co.za
 IdentitiesOnly yes
 IdentityFile ~/.ssh/keys/tom.bamford@hetzner.co.za.key
-Port 22
 User tom.b
 
 Host *.jenkins.hetzner.co.za
 IdentitiesOnly yes
 IdentityFile ~/.ssh/keys/tom.bamford@hetzner.co.za.key
-Port 22
 User root
 
 Host tomb-desktop tomb-desktop.dur1 tomb-desktop.dur1.host-h.net
-User tomb
+User tom
 
 Host linsh linsh.dur1 linsh.dur1.host-h.net
-Port 22
 User linsh
 
 Host tf2 tf2.dur1 tf2.dur1.host-h.net
-Port 22
 User tf2
 
 Host ghe1.cpt1.host-h.net
 IdentityFile ~/.ssh/keys/tom.bamford@hetzner.co.za.key
-Port 22
 User git
 
 Host *.tst1 *.tst1.host-h.net
-Port 22
 IdentitiesOnly yes
 IdentityFile ~/.ssh/keys/vagrant.key
 User vagrant
@@ -84,19 +78,16 @@ User root
 ################################################################################
 
 Host bitbucket.org
-Port 22
 StrictHostKeyChecking ask
 User git
 
 Host github.com
-Port 22
 StrictHostKeyChecking ask
 User git
 
 Host github-with-hetz-key
 HostName github.com
 IdentityFile ~/.ssh/keys/tom.bamford@hetzner.co.za.key
-Port 22
 StrictHostKeyChecking ask
 User git
 

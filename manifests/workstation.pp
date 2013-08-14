@@ -186,6 +186,7 @@ users::dotfile { [
   'zshrc',
 ]: user => $username, group => $group }
 
+users::dotfile { 'ssh/authorized_keys': user => $username, group => $group, mode => '0600', template => true }
 users::dotfile { [ 'ssh/config', 'ssh/known_hosts' ]: user => $username, group => $group, mode => '0600' }
 users::dotfile { [ 'pyenv', 'zsh' ]: user => $username, group => $group, recurse => true }
 
