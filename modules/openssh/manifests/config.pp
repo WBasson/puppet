@@ -4,7 +4,7 @@ class openssh::config {
     ensure  => present,
     owner   => 'root',
     group   => 'root',
-    mode    => '0644',
+    mode    => '0600',
     content => template('openssh/sshd_config.erb'),
     require => Class['openssh::package'],
     notify  => Class['openssh::service'],
