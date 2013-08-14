@@ -123,6 +123,12 @@ case $role {
       require => $user_require,
     }
 
+    if $::operatingsystem == 'Debian' {
+      package { 'kde-standard':
+        ensure => installed,
+      }
+    }
+
     if $::operatingsystem == 'Fedora' {
       #class { 'kde::autologin': user => $username }
     }
