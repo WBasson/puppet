@@ -41,6 +41,7 @@ case $role {
     include dev::libs
     include dev::tools
     include insync
+    include kde
     include kerberos
     include ldap
     include multimedia
@@ -121,12 +122,6 @@ case $role {
       home    => "/home/${username}",
       shell   => '/bin/zsh',
       require => $user_require,
-    }
-
-    if $::operatingsystem == 'Debian' {
-      package { 'kde-standard':
-        ensure => installed,
-      }
     }
 
     if $::operatingsystem == 'Fedora' {
