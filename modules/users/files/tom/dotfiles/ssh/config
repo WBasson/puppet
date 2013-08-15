@@ -21,7 +21,7 @@ User tom
 Host sysadmin1.lon.atpla.net
 Port 443
 
-Host git.atplanet.co.za git.bamford.co.za
+Host code.atplanet.co.za
 ChallengeResponseAuthentication no
 PasswordAuthentication no
 Port 443
