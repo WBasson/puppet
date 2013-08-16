@@ -95,6 +95,8 @@ case $role {
       'Debian' => 'icedove',
       'Fedora' => 'thunderbird',
     }: ensure => installed }
+    package { 'transmission-qt': ensure => installed }
+    package { 'unetbootin': ensure => installed }
     package { $::operatingsystem ? {
       'Debian' => 'vim',
       'Fedora' => 'vim-enhanced',
