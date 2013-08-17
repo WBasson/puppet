@@ -9,15 +9,12 @@ class skype {
 
       $md5sum = '229fc46e22a5fe5122823d401e8e9098'
 
-      exec { 'download-skype':
-        command     => "wget 'http://download.skype.com/linux/skype-debian_${version}-1_i386.deb' -O /tmp/skype.deb",
-        unless      => "[ -f /tmp/skype.deb ] && md5sum /tmp/skype.deb | awk '{print \$1;}' | grep -q '^${md5sum}$'",
-      }
-
       exec { 'install-skype':
-        command => 'dpkg -i /tmp/skype.deb; apt-get -y -f install; dpkg -l | grep skype | grep -q "^ii"',
-        unless  => 'dpkg -l | grep skype | grep -q "^ii"',
-        require => Exec['download-skype'],
+        command  => "if ! [ -f /tmp/skype.deb ] || md5sum /tmp/skype.deb | awk '{print \$1;}' | grep -qv '^${md5sum}$'; then \
+                    wget 'http://download.skype.com/linux/skype-debian_${version}-1_i386.deb' -O /tmp/skype.deb; fi; \
+                    dpkg -i /tmp/skype.deb; apt-get -y -f install; dpkg -l | grep skype | grep -q '^ii'",
+        provider => 'shell',
+        unless   => 'dpkg -l | grep skype | grep -q "^ii"',
       }
 
     }

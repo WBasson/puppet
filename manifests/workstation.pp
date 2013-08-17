@@ -41,6 +41,7 @@ case $role {
     include dev::libs
     include dev::tools
     include insync
+    include kde
     include kerberos
     include ldap
     include multimedia
@@ -98,6 +99,8 @@ case $role {
       'Debian' => 'icedove',
       'Fedora' => 'thunderbird',
     }: ensure => installed }
+    package { 'transmission-qt': ensure => installed }
+    package { 'unetbootin': ensure => installed }
     package { $::operatingsystem ? {
       'Debian' => 'vim',
       'Fedora' => 'vim-enhanced',
@@ -181,6 +184,7 @@ users::dotfile { [
   'env',
   'gitconfig',
   'gitignore_global',
+  'hushlogin',
   'ldaprc',
   'profile',
   'screenrc',
@@ -189,6 +193,7 @@ users::dotfile { [
   'zshrc',
 ]: user => $username, group => $group }
 
+users::dotfile { 'ssh/authorized_keys': user => $username, group => $group, mode => '0600', template => true }
 users::dotfile { [ 'ssh/config', 'ssh/known_hosts' ]: user => $username, group => $group, mode => '0600' }
 users::dotfile { [ 'pyenv', 'zsh' ]: user => $username, group => $group, recurse => true }
 

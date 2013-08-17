@@ -1,4 +1,4 @@
-define users::dotfile($user, $group = $user, $home = "/home/$user", $mode = false, $recurse = false) {
+define users::dotfile($user, $group = $user, $home = "/home/$user", $mode = false, $recurse = false, $template = false) {
 
   if $name =~ /\// {
     $directory = regsubst($name, '^(.+)/([^/]+)', "$home/.\\1")
@@ -16,30 +16,28 @@ define users::dotfile($user, $group = $user, $home = "/home/$user", $mode = fals
     }
   }
 
-  $ignore = '.git'
-  $source = "puppet:///modules/users/$user/dotfiles/$name"
+  file { "${home}/.${name}":
+    ensure  => present,
+    owner   => $user,
+    group   => $group,
+    recurse => $recurse,
+    ignore  => '.git',
+    require => User[$user],
+  }
 
-  # Ouch, either we set a mode or we inherit from the source file
-  if $mode == false {
-    file { "$home/.$name":
-      ensure  => present,
-      owner   => $user,
-      group   => $group,
-      recurse => $recurse,
-      ignore  => $ignore,
-      source  => $source,
-      require => User[$user],
+  if $mode != false {
+    File["${home}/.${name}"] {
+      mode => $mode,
+    }
+  }
+
+  if $template == false {
+    File["${home}/.${name}"] {
+      source => "puppet:///modules/users/${user}/dotfiles/${name}",
     }
   } else {
-    file { "$home/.$name":
-      ensure  => present,
-      owner   => $user,
-      group   => $group,
-      mode    => $mode,
-      recurse => $recurse,
-      ignore  => $ignore,
-      source  => $source,
-      require => User[$user],
+    File["$home/.$name"] {
+      content => template("users/${user}/dotfiles/${name}.erb"),
     }
   }
 
