@@ -184,6 +184,7 @@ users::dotfile { [
   'gitignore_global',
   'hushlogin',
   'ldaprc',
+  'my.cnf',
   'profile',
   'screenrc',
   'shell_colours',
