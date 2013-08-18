@@ -46,6 +46,7 @@ case $role {
     include ldap
     include multimedia
     include openssh
+    include php
     include ruby
     include selinux
     include skype
@@ -79,10 +80,6 @@ case $role {
     }: ensure => installed }
     package { 'kate': ensure => installed }
     package { 'mcollective-client': ensure => installed }
-    package { $::operatingsystem ? {
-      'Debian' => [ 'php5-cgi', 'php5-cli' ],
-      'Fedora' => [ 'php' ],
-    }: ensure => installed }
     package { 'puppet': ensure => installed }
     package { 'qmpdclient': ensure => installed }
     package { $::operatingsystem ? {
