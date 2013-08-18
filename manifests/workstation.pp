@@ -45,6 +45,7 @@ case $role {
     include kerberos
     include ldap
     include multimedia
+    include mysql
     include openssh
     include php
     include ruby
