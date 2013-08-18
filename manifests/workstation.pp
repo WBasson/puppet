@@ -52,7 +52,7 @@ case $role {
     include ssl
     include vagrant
     include wireshark
-    include yum::rpmfusion
+    include yum
 
     if $::virtual == 'physical' {
       include virtualbox
