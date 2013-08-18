@@ -1,6 +1,6 @@
 include stdlib
 
-if $::hostname =~ /^(hamlet(-vm)?|tomb-(dell|desktop|laptop|workstation)|(debian|fedora|ubuntu)-vm)$/ {
+if $::hostname =~ /^cornetti|hamlet|tomb-(dell|desktop|laptop|workstation)|(debian|fedora|ubuntu)-vm$/ {
   $role = 'workstation'
 } elsif $::domain =~ /.+\.host-h\.net/ {
   $role = 'hetz_server'
