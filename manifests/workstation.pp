@@ -80,6 +80,10 @@ case $role {
       'Fedora' => 'java-1.7.0-openjdk',
     }: ensure => installed }
     package { 'kate': ensure => installed }
+    package { $::operatingsystem ? {
+      'Debian' => 'partitionmanager',
+      'Fedora' => 'kde-partitionmanager',
+    }: ensure => installed }
     package { 'mcollective-client': ensure => installed }
     package { 'puppet': ensure => installed }
     package { 'qmpdclient': ensure => installed }
