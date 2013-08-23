@@ -109,14 +109,14 @@ case $role {
     }: ensure => installed }
     package { 'zsh': ensure => installed }
 
-    $common_groups =  [ 'dialout', $::virtual ? {
+    $common_groups =  [ 'adm', 'cdrom', 'dialout', 'pulse', 'pulse-access', $::virtual ? {
       'physical' => 'vboxusers',
       default    => 'vboxsf',
     } ]
 
     $groups = $::operatingsystem ? {
-      'Debian' => concat($common_groups, [ 'adm', 'cdrom', 'fuse', 'plugdev', 'lpadmin', 'sudo' ]),
-      'Fedora' => concat($common_groups, [ 'lp', 'wheel', 'wireshark' ]),
+      'Debian' => concat($common_groups, [ 'fuse', 'plugdev', 'lpadmin', 'sudo' ]),
+      'Fedora' => concat($common_groups, [ 'lp', 'tcpdump', 'wheel', 'wireshark' ]),
     }
 
     $user_require = $::virtual ? {
