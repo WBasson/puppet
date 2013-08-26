@@ -64,7 +64,7 @@ User git
 Host *.tst1 *.tst1.host-h.net
 IdentitiesOnly yes
 IdentityFile ~/.ssh/keys/vagrant.key
-User vagrant
+#User vagrant
 
 Host *.cpt? *.dur? *.flk? *.jnb? *.nur? *.host-h.net
 GSSAPIAuthentication yes
