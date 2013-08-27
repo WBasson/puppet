@@ -187,6 +187,7 @@ users::dotfile { [
   'gitconfig',
   'gitignore_global',
   'hushlogin',
+  'kde/share/config/kwalletrc',
   'ldaprc',
   'my.cnf',
   'profile',
