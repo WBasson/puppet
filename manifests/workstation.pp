@@ -187,7 +187,6 @@ users::dotfile { [
   'gitconfig',
   'gitignore_global',
   'hushlogin',
-  'kde/share/config/kwalletrc',
   'ldaprc',
   'my.cnf',
   'profile',
@@ -200,6 +199,10 @@ users::dotfile { [
 users::dotfile { 'ssh/authorized_keys': user => $username, group => $group, mode => '0600', template => true }
 users::dotfile { [ 'ssh/config', 'ssh/known_hosts' ]: user => $username, group => $group, mode => '0600' }
 users::dotfile { [ 'pyenv', 'zsh' ]: user => $username, group => $group, recurse => true }
+
+if $::role == 'workstation' {
+  users::dotfile { 'kde/share/config/kwalletrc': user => $username, group => $group }
+}
 
 users::vim { $username: group => $group }
 users::vimbundle { [
