@@ -38,6 +38,11 @@ User tombamford
 # HETZNER
 ################################################################################
 
+Host github.hetzner.co.za
+IdentitiesOnly yes
+IdentityFile ~/.ssh/keys/tom.bamford@hetzner.co.za.key
+User git
+
 Host vcs.hetzner.co.za git.hetzner.co.za
 IdentitiesOnly yes
 IdentityFile ~/.ssh/keys/tom.bamford@hetzner.co.za.key
