@@ -1,0 +1,10 @@
+[Auto Allow]
+kdewallet=kwalletmanager,KDE Daemon
+
+[Auto Deny]
+kdewallet=
+
+[Wallet]
+Close When Idle=true
+Close on Screensaver=false
+Idle Timeout=480
