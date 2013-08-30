@@ -1,10 +1,16 @@
 class mysql::package {
 
-  package { $::operatingsystem ? {
-    'Debian' => 'mysql-client',
-    'Fedora' => 'mysql',
-  }: ensure => installed }
-
-  package { 'mysql-server': ensure => installed }
+  case $::operatingsystem {
+    'Debian': {
+      package { ['mysql-client', 'mysql-server']: ensure => installed }
+    }
+    'Fedora': {
+      if $::lsbdistrelease >= 19 {
+        package { ['mariadb', 'mariadb-server']: ensure => installed }
+      } else {        
+        package { ['mysql', 'mysql-server']: ensure => installed }
+      }
+    }
+  }
 
 }
