@@ -1,0 +1,8 @@
+[Auto Allow]
+kdewallet=kwalletmanager,KDE Daemon
+
+[Auto Deny]
+kdewallet=Google Chrome
+
+[Wallet]
+Idle Timeout=3600
