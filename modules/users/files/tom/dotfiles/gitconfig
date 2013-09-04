@@ -27,8 +27,8 @@ lineNumber = true
 [help]
 autocorrect = 5
 
-[push]
-default = simple
+#[push]
+#default = simple
 
 [user]
 name = Tom Bamford

@@ -40,11 +40,12 @@ echo -n "\033]0;${SSH_HOST}\007"
 # Attempt to qualify Hetzner hostname
 SSH_HOST=$(hetz-qualify-hostname.sh $SSH_HOST)
 
+# Determine the command to execute on the remote host
 if [[ $SSH_HOST =~ \.atpla\.net$ ]]; then
-  # Set command to run on remote host
+  COMMAND=byobu
+elif [[ $SSH_HOST =~ \.tracks4africa\.co\.za$ ]]; then
   COMMAND=byobu
 elif [[ $SSH_HOST =~ \.host-h\.net$ ]]; then
-  # Set command to run on remote host
   COMMAND="screen -S $LOGNAME -xR"
 
   # Look for kerberos ticket and request new TGT

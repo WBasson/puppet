@@ -17,7 +17,7 @@ PUPPET_REPO_R="https://github.com/tombamford/puppet.git"
 PUPPET_REPO_W="ssh://github-with-hetz-key/tombamford/puppet.git"
 PUPPET_MANIFEST="workstation"
 PUPPETHETZ_DIR="$REMOTE_DIR/hetz/puppet"
-PUPPETHETZ_REPO="tom.b@vcs.hetzner.co.za:/srv/git/puppet.git"
+PUPPETHETZ_REPO="git@github.hetzner.co.za:hetznerZA/puppet.git"
 
 echo "Qualifying hostname..."
 SSH_HOST=$(hetz-qualify-hostname.sh $SSH_HOST)

@@ -6,3 +6,5 @@ kdewallet=Google Chrome
 
 [Wallet]
 Idle Timeout=3600
+Close When Idle=true
+Close on Screensaver=false

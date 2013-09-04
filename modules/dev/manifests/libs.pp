@@ -17,7 +17,6 @@ class dev::libs {
       'libxml2-devel',
       'libxslt-devel',
       'libyaml-devel',
-      'mysql-devel',
       'openldap-devel',
       'openssl-devel',
       'postgresql-devel',
@@ -31,5 +30,13 @@ class dev::libs {
       'zlib-devel',
     ],
   }: ensure => installed }
+
+  if $::operatingsystem == 'Fedora' {
+    if $::lsbdistrelease >= 19 {
+      package { 'mariadb-devel': ensure => installed }
+    } else {        
+      package { 'mysql-devel': ensure => installed }
+    }
+  }
 
 }
