@@ -1,0 +1,2 @@
+#!/bin/sh
+ssh collectivehub1.jnb2.host-h.net "mco $*"

@@ -147,7 +147,7 @@ case $role {
 
     users::script { [
       'askpass.sh',
-      'env-push.sh',
+      'env-push',
       'fix_known_hosts.rb',
       'hetz-qualify-hostname.sh',
       's',
@@ -169,7 +169,7 @@ case $role {
     }
 
     users::script { [
-      'env-push.sh',
+      'env-push',
       'fix_known_hosts.rb',
       'hetz-qualify-hostname.sh',
       's',
