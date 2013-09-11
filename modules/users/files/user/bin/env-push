@@ -9,7 +9,7 @@ SSH_HOST="${HOST_SPEC##*@}"
 SSH_ARGS="${@%$HOST_SPEC}"
 
 # Parameters for setup of remote environment
-REMOTE_USER=tom.b
+REMOTE_USER=willemb
 REMOTE_GROUP=staff
 REMOTE_DIR="/home/$REMOTE_USER"
 PUPPET_DIR="$REMOTE_DIR/puppet"

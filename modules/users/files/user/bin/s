@@ -51,7 +51,7 @@ elif [[ $SSH_HOST =~ \.host-h\.net$ ]]; then
   # Look for kerberos ticket and request new TGT
   if [ "$SSH_HOST" != "tomb-desktop.dur1.host-h.net" ]; then
     if klist 2>&1 | grep -q "No credentials"; then
-      kinit tom.b/root
+      kinit willemb/root
       klist 2>&1 | grep -q "No credentials" && exit 1
     fi
   fi

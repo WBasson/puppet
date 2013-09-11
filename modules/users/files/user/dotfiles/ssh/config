@@ -16,7 +16,7 @@ User git
 
 Host vcs.hetzner.co.za git.hetzner.co.za
 IdentitiesOnly yes
-User tom.b
+User willemb
 
 Host *.jenkins.hetzner.co.za
 IdentitiesOnly yes

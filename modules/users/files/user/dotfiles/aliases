@@ -1,4 +1,4 @@
-alias kinit="kinit tom.b/root"
+alias kinit="kinit willemb/root"
 alias ldapvi="ldapvi -D cn=admin,dc=atpla,dc=net"
 alias vi="vim"
 alias view="vim -R"
