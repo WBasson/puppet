@@ -76,6 +76,7 @@ case $role {
 #    }: ensure => installed }
     package { 'mcollective-client': ensure => installed }
     package { 'puppet': ensure => installed }
+    package { 'heimdal-clients': ensure => installed }
 #    package { 'qmpdclient': ensure => installed }
 #    package { $::operatingsystem ? {
 #      'Debian' => 'quassel-client-kde4',

@@ -9,11 +9,11 @@ define users::dropbox($home = "/home/${name}") {
     provider => shell,
   }
 
-  file { "autostart-dropboxd-for-${name}":
-    ensure   => link,
-    path     => "${home}/.kde/Autostart/dropboxd",
-    target   => "../../.dropbox-dist/dropboxd",
-    require  => Exec["install-dropboxd-for-${name}"],
-  }
+  #  file { "autostart-dropboxd-for-${name}":
+  # ensure   => link,
+  # path     => "${home}/.kde/Autostart/dropboxd",
+  # target   => "../../.dropbox-dist/dropboxd",
+  # require  => Exec["install-dropboxd-for-${name}"],
+ #}
 
 }
