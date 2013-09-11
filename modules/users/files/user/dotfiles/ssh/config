@@ -7,54 +7,20 @@ StrictHostKeyChecking no
 
 
 ################################################################################
-# @PLANET
-################################################################################
-
-Host *.atpla.net
-ChallengeResponseAuthentication no
-ForwardAgent yes
-PasswordAuthentication no
-Port 3022
-StrictHostKeyChecking yes
-User tom
-
-Host sysadmin1.lon.atpla.net
-Port 443
-
-Host code.atplanet.co.za
-ChallengeResponseAuthentication no
-PasswordAuthentication no
-Port 443
-StrictHostKeyChecking yes
-User git
-
-Host lish-london.linode.com
-Port 443
-StrictHostKeyChecking yes
-User tombamford
-
-
-################################################################################
 # HETZNER
 ################################################################################
 
 Host github.hetzner.co.za
 IdentitiesOnly yes
-IdentityFile ~/.ssh/keys/tom.bamford@hetzner.co.za.key
 User git
 
 Host vcs.hetzner.co.za git.hetzner.co.za
 IdentitiesOnly yes
-IdentityFile ~/.ssh/keys/tom.bamford@hetzner.co.za.key
 User tom.b
 
 Host *.jenkins.hetzner.co.za
 IdentitiesOnly yes
-IdentityFile ~/.ssh/keys/tom.bamford@hetzner.co.za.key
 User root
-
-Host tomb-desktop tomb-desktop.dur1 tomb-desktop.dur1.host-h.net
-User tom
 
 Host linsh linsh.dur1 linsh.dur1.host-h.net
 User linsh
@@ -63,7 +29,6 @@ Host tf2 tf2.dur1 tf2.dur1.host-h.net
 User tf2
 
 Host ghe1.cpt1.host-h.net
-IdentityFile ~/.ssh/keys/tom.bamford@hetzner.co.za.key
 User git
 
 Host *.tst1 *.tst1.host-h.net
@@ -77,43 +42,9 @@ Port 3022
 StrictHostKeyChecking no
 User root
 
-
-################################################################################
-# HOSTING SERVICES
-################################################################################
-
-Host bitbucket.org
-StrictHostKeyChecking ask
-User git
-
 Host github.com
 StrictHostKeyChecking ask
 User git
-
-Host github-with-hetz-key
-HostName github.com
-IdentityFile ~/.ssh/keys/tom.bamford@hetzner.co.za.key
-StrictHostKeyChecking ask
-User git
-
-
-################################################################################
-# CUSTOMER - AFRISPATIAL/TRACKS4AFRICA
-################################################################################
-
-Host t4a*.tracks4africa.co.za
-Port 8697
-StrictHostKeyChecking yes
-User tom
-
-
-################################################################################
-# CUSTOMER - WEBTIDE
-################################################################################
-
-Host aestus.webtide.co.za
-Port 222
-StrictHostKeyChecking yes
 
 
 ################################################################################
@@ -122,7 +53,7 @@ StrictHostKeyChecking yes
 
 Host *
 HashKnownHosts no
-IdentityFile ~/.ssh/keys/tom@bamford.co.za.key
+IdentityFile ~/.ssh/id_dsa
 ServerAliveInterval 30
 ServerAliveCountMax 6
 
